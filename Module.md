@@ -37,3 +37,23 @@ The core logic to determine whether a request is allowed is implemented in the `
 
 4. **Push Current Request**: 
    - If the window is not full, the current request timestamp is added to the Redis list.
+
+## Example usage
+
+Following is how you can engage the throttler for a given service.
+
+```ballerina
+import ballerina/http;
+import shaf65/request.throttle.rtinterceptor;
+
+service http:InterceptableService / on new http:Listener(9091) {
+
+    public function createInterceptors() returns http:Interceptor {
+        return new rtinterceptor:RequestThrottleRedisInterceptor();
+    }
+
+    resource function get throttle() returns string {
+        return "Got through";
+    }
+}
+```
