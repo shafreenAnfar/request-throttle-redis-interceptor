@@ -11,7 +11,7 @@ isolated function allowRequest(redis:Client redisEp) returns boolean|error {
     
     if windowNotFull {
         _ = check redisEp->lPush(SERVED_REQUESTS, [currentTime.toString()]);
-        _ = check redisEp->lTrim(SERVED_REQUESTS, 0, MAX_REQUESTS);
+        // _ = check redisEp->lTrim(SERVED_REQUESTS, 0, MAX_REQUESTS);
     }
     return windowNotFull;
 }
